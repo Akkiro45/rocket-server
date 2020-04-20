@@ -1,0 +1,12 @@
+{
+  "test": {
+    "PORT": 4000,
+    "MONGODB_URI": "mongodb://localhost:27017/RocketApp",
+    "JWT_SECRET": "ajsjkasjbajbsjbajsbjasm"
+  },
+  "development": {
+    "PORT": 4000,
+    "MONGODB_URI": "mongodb://localhost:27017/RocketApp",
+    "JWT_SECRET": "asjsbjbgklqewt%g3&8j!yhkjbedfljowji7gj"
+  }
+}

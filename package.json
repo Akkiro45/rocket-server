@@ -1,0 +1,33 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "export NODE_ENV=production && node server.js",
+    "dev": "export NODE_ENV=development || SET \"NODE_ENV=development\" && nodemon server.js"
+  },
+  "author": "Akkiro",
+  "engines": {
+    "node": "10.5.0"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "got": "^9.6.0",
+    "helmet": "^3.22.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "metascraper": "^5.11.6",
+    "metascraper-description": "^5.11.6",
+    "metascraper-image": "^5.11.6",
+    "metascraper-logo": "^5.11.6",
+    "metascraper-title": "^5.11.6",
+    "metascraper-url": "^5.11.9",
+    "mongodb": "^3.5.5",
+    "mongoose": "^5.9.6"
+  }
+}
