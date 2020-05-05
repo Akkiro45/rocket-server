@@ -57,15 +57,15 @@ const router = express.Router();
 router.post('/add', authenticate, async (req, res) => {
   let resBody = {};
   let error = {};
-  const reqBody = _.pick(req.body, ['url', 'group']);
+  const reqBody = _.pick(req.body, ['url', 'group', 'html']);
   try {
     if(reqBody.url) {
-      const response = await fetch(reqBody.url, options = {
-        headers: { 'Access-Control-Allow-Origin': '*',
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36' }
-      });
-      const html = await response.text();
-      const doc = domino.createWindow(html).document;
+      // const response = await fetch(reqBody.url, options = {
+      //   headers: { 'Access-Control-Allow-Origin': '*',
+      //   'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36' }
+      // });
+      // const html = await response.text();
+      const doc = domino.createWindow(reqBody.html).document;
       const metadata = getMetadata(doc, reqBody.url);
       console.log(response);
       console.log(metadata)
