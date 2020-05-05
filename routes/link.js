@@ -64,6 +64,8 @@ router.post('/add', authenticate, async (req, res) => {
       const html = await response.text();
       const doc = domino.createWindow(html).document;
       const metadata = getMetadata(doc, reqBody.url);
+      console.log(response);
+      console.log(metadata)
       if(!metadata) {
         throw new Error('Error');
       }
