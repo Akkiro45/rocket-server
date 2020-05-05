@@ -60,9 +60,7 @@ router.post('/add', authenticate, async (req, res) => {
   const reqBody = _.pick(req.body, ['url', 'group']);
   try {
     if(reqBody.url) {
-      const response = await fetch(reqBody.url, {
-        credentials: 'include',
-        mode: 'cors',
+      const response = await fetch(reqBody.url, options = {
         headers: { 'Access-Control-Allow-Origin': '*',
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36' }
       });
