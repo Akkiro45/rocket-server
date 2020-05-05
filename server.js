@@ -15,7 +15,6 @@ const port = process.env.PORT;
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(helmet());
 app.use(cors());
-app.enable('trust proxy');
 
 // Routes
 app.use(`/user`, userRoute);
