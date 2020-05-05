@@ -63,7 +63,7 @@ router.post('/add', authenticate, async (req, res) => {
       const response = await fetch(reqBody.url, {
         credentials: 'include',
         mode: 'cors',
-        headers: { 'Access-Control-Allow-Origin': '*' }
+        headers: { 'Access-Control-Allow-Origin': '*', 'User-Agent': 'Mozilla/5.0' }
       });
       const html = await response.text();
       const doc = domino.createWindow(html).document;
