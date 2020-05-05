@@ -57,12 +57,12 @@ const router = express.Router();
 router.post('/add', authenticate, async (req, res) => {
   let resBody = {};
   let error = {};
-  const reqBody = _.pick(req.body, ['url', 'group', 'html']);
+  const reqBody = _.pick(req.body, ['url', 'group']);
   try {
     if(reqBody.url) {
       const response = await fetch(reqBody.url);
       const html = await response.text();
-      const doc = domino.createWindow(reqBody.html).document;
+      const doc = domino.createWindow(html).document;
       const metadata = getMetadata(doc, reqBody.url);
       if(!metadata) {
         throw new Error('Error');
