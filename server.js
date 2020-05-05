@@ -24,9 +24,22 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
+// const {getMetadata} = require('page-metadata-parser');
+// const domino = require('domino');
+// const fetch = require('node-fetch');
+//
+// const f = async () => {
+//   const url = 'https://yts.mx/movie/21-bridges-2019';
+//   const response = await fetch(url);
+//   const html = await response.text();
+//   const doc = domino.createWindow(html).document;
+//   const metadata = getMetadata(doc, url);
+//   console.log(metadata)
+// }
+// f();
 
 // const urlMetadata = require('url-metadata')
-// urlMetadata('https://medium.com/@balghazi/deploying-react-node-js-application-to-amazon-ec2-instance-a89140ab6aab').then(
+// urlMetadata('https://yts.mx/movie/21-bridges-2019').then(
 //   function (metadata) { // success handler
 //     console.log(metadata)
 //   },
