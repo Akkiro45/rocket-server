@@ -13,7 +13,8 @@ const {getMetadata} = require('page-metadata-parser');
 const domino = require('domino');
 const fetch = require('isomorphic-fetch');
 const axios = require('axios');
-
+const http = require('http');
+const https = require('https');
 const Link = require('../models/link');
 const { authenticate } = require('../middlewares/authenticate');
 
@@ -61,10 +62,18 @@ router.post('/add', authenticate, async (req, res) => {
   const reqBody = _.pick(req.body, ['url', 'group']);
   try {
     if(reqBody.url) {
-      const h = await axios.get(reqBody.url,
-        { headers: {
-          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.1 Safari/605.1.15'
-        } });
+      const config = { headers: {
+        'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:63.0) Gecko/20100101 Firefox/63.0'
+      } }
+      const h = await axios(
+        {
+          method: 'GET',
+          httpAgent: new http.Agent({ keepAlive: true, maxSockets: 100 }),
+          httpsAgent: new https.Agent({ keepAlive: true, maxSockets: 100 }),
+          url: reqBody.url,
+          headers: config
+        }
+      );
       // console.log(h);
       const response = await fetch(reqBody.url);
       const html = await response.text();
