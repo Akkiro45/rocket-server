@@ -61,7 +61,10 @@ router.post('/add', authenticate, async (req, res) => {
   const reqBody = _.pick(req.body, ['url', 'group']);
   try {
     if(reqBody.url) {
-      const h = await axios.get(reqBody.url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+      const h = await axios.get(reqBody.url,
+        { headers: {
+          'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/12.1.1 Safari/605.1.15'
+        } });
       // console.log(h);
       const response = await fetch(reqBody.url);
       const html = await response.text();
@@ -91,6 +94,8 @@ router.post('/add', authenticate, async (req, res) => {
       throw new Error('Error');
     }
   } catch(e) {
+    console.log(e);
+    console.log(e.response);
     error.msg = 'Invalid link!';
     resBody.status = 'error';
     resBody.error = error;
