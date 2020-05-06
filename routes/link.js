@@ -12,6 +12,7 @@ const scrape = require('scrape-metadata');
 const {getMetadata} = require('page-metadata-parser');
 const domino = require('domino');
 const fetch = require('isomorphic-fetch');
+const axios = require('axios');
 
 const Link = require('../models/link');
 const { authenticate } = require('../middlewares/authenticate');
@@ -60,9 +61,11 @@ router.post('/add', authenticate, async (req, res) => {
   const reqBody = _.pick(req.body, ['url', 'group']);
   try {
     if(reqBody.url) {
+      const h = await axios.get(reqBody.url, { headers: { 'User-Agent': 'Mozilla/5.0' } });
+      // console.log(h);
       const response = await fetch(reqBody.url);
       const html = await response.text();
-      const doc = domino.createWindow(html).document;
+      const doc = domino.createWindow(h.data).document;
       const metadata = getMetadata(doc, reqBody.url);
       if(!metadata) {
         throw new Error('Error');
