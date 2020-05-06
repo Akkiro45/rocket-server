@@ -11,7 +11,7 @@ const metascraper = require('metascraper')([
 const scrape = require('scrape-metadata');
 const {getMetadata} = require('page-metadata-parser');
 const domino = require('domino');
-const fetch = require('node-fetch');
+const fetch = require('isomorphic-fetch');
 
 const Link = require('../models/link');
 const { authenticate } = require('../middlewares/authenticate');
