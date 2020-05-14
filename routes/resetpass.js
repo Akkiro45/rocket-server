@@ -97,7 +97,7 @@ router.patch('/reset', async (req, res) => {
           const resetPass = await ResetPass.findOne({ userId: decoded.userId });
           if(resetPass) {
             const user = await User.findById(decoded.userId);
-            user.set({ password: body.password });
+            user.set({ password: body.password, tokens: [] });
             const saved = await user.save();
             if(saved) {
               const rp = await ResetPass.remove({ userId: decoded.userId });
