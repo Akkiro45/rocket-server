@@ -8,6 +8,7 @@ const helmet = require('helmet');
 const { mongoose } = require('./db/mongoose');
 const userRoute = require('./routes/user');
 const linkRoute = require('./routes/link');
+const resetPassRoute = require('./routes/resetpass');
 
 const app = express();
 const port = process.env.PORT;
@@ -19,6 +20,7 @@ app.use(cors());
 // Routes
 app.use(`/user`, userRoute);
 app.use(`/link`, linkRoute);
+app.use(`/resetpassword`, resetPassRoute);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

@@ -18,12 +18,14 @@
     "cors": "^2.8.5",
     "domino": "^2.1.5",
     "express": "^4.17.1",
+    "googleapis": "^50.0.0",
     "helmet": "^3.22.0",
     "isomorphic-fetch": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "mongodb": "^3.5.5",
     "mongoose": "^5.9.6",
+    "nodemailer": "^6.4.6",
     "page-metadata-parser": "^1.1.4"
   }
 }

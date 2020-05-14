@@ -57,8 +57,6 @@ router.post('/add', authenticate, async (req, res) => {
       throw new Error('Error');
     }
   } catch(e) {
-    console.log(e);
-    console.log(e.response);
     error.msg = 'Invalid link!';
     resBody.status = 'error';
     resBody.error = error;

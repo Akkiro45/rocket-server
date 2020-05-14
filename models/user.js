@@ -25,7 +25,9 @@ const UserSchema = new mongoose.Schema({
     type: String,
     trim: true,
     minlength: 2,
-    required: true
+    required: true,
+    unique: true,
+    sparse: true
   },
   tokens: [
     {
