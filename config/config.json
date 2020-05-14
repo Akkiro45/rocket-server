@@ -8,8 +8,8 @@
     "PORT": 4000,
     "MONGODB_URI": "mongodb://localhost:27017/RocketApp",
     "JWT_SECRET": "asjsbjbgklqewt%g3&8j!yhkjbedfljowji7gj",
-    "CLIENT_ID": "987881583528-51ulg76n02lbakl9vk7r6f2s3pf5rfcv.apps.googleusercontent.com",
-    "CLIENT_SECRET": "HEakCcCeCKsx6kg7PoZGDbNy",
-    "REFRESH_TOKEN": "1//04S7_R2eL7QXOCgYIARAAGAQSNgF-L9IrjFN2hCohVtcRVf7tWlMUVfzJGd-XFv-wc_e-DT6RdlnbEd0m1Zq-xa8CNlQfqXPTkQ"
+    "CLIENT_ID": "",
+    "CLIENT_SECRET": "",
+    "REFRESH_TOKEN": ""
   }
 }
