@@ -14,6 +14,3 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true })
 module.exports = {
   mongoose
 }
-
-// mongodb://localhost:27017/RocketApp
-// mongodb+srv://Akkiro:Rocket2020[1]@cluster1-zotfu.mongodb.net/Rocket?retryWrites=true&w=majority
