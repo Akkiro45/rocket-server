@@ -1,5 +1,6 @@
 const express = require('express');
 const _ = require('lodash');
+const bcrypt = require('bcryptjs');
 
 const User = require('../models/user');
 const { authenticate } = require('../middlewares/authenticate');
@@ -70,6 +71,22 @@ router.delete('/signout', authenticate, (req, res) => {
       resBody.status = 'error';
       return res.status(400).send(resBody);
     });
+});
+
+router.post('/check/password', authenticate, (req, res) => {
+  let resBody = {};
+  let error = {};
+  bcrypt.compare(req.body.password, req.user.password, (err, result) => {
+    if(result) {
+      resBody.status = 'ok';
+      return res.status(200).send(resBody);
+    } else {
+      resBody.status = 'error';
+      error.msg = 'Incorrect password!';
+      resBody.error = error;
+      return res.status(401).send(resBody);
+    }
+  });
 });
 
 module.exports = router;

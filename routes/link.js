@@ -12,7 +12,7 @@ const router = express.Router();
 router.post('/add', authenticate, async (req, res) => {
   let resBody = {};
   let error = {};
-  const reqBody = _.pick(req.body, ['url', 'group', 'data']);
+  const reqBody = _.pick(req.body, ['url', 'group', 'data', 'hide']);
   try {
     if(reqBody.url) {
       let body;
@@ -20,12 +20,8 @@ router.post('/add', authenticate, async (req, res) => {
         body = {
           ...reqBody.data,
           userId: req.user._id,
-          // url: reqBody.url,
-          // title: metadata.title,
-          // description: metadata.description,
-          // image: metadata.image,
-          // logo: metadata.icon,
-          createdAt: new Date().getTime()
+          createdAt: new Date().getTime(),
+          hide: reqBody.hide
         }
       } else {
         const response = await fetch(reqBody.url);
@@ -42,7 +38,8 @@ router.post('/add', authenticate, async (req, res) => {
           description: metadata.description,
           image: metadata.image,
           logo: metadata.icon,
-          createdAt: new Date().getTime()
+          createdAt: new Date().getTime(),
+          hide: reqBody.hide
         }
       }
       if(reqBody.group) {
@@ -111,6 +108,26 @@ router.get('/', authenticate, async (req, res) => {
     error.msg = 'something went wrong!';
     resBody.error = error;
     return res.status(400).send(resBody);
+  }
+});
+
+router.patch('/edit', authenticate, async (req, res) => {
+  let resBody = {};
+  let error = {};
+  try {
+    const link = await Link.findById(req.body.id);
+    if(!link) {
+      throw new Error('Error!');
+    }
+    link[req.body.type] = req.body.value;
+    await link.save();
+    resBody.status = 'ok';
+    return res.status(200).send(resBody);
+  } catch(e) {
+    error.msg = 'Not found!';
+    resBody.error = error;
+    resBody.status = 'error';
+    return res.status(404).send(resBody);
   }
 });
 

@@ -11,7 +11,8 @@ const LinkSchema = new mongoose.Schema({
   image: { type: String },
   logo: { type: String },
   group: { type: String, default: 'None', maxlength: 60 },
-  createdAt: { type: Number, required: true }
+  createdAt: { type: Number, required: true },
+  hide: { type: Boolean, default: false }
 });
 
 const Link = mongoose.model('Link', LinkSchema);
