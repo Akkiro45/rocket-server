@@ -5,3 +5,4 @@ Node server for rocket mobile app and web-app.
   * Node.js
   * Express
   * Mongoose
+  * page-metadata-parser
