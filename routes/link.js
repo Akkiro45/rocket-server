@@ -1,64 +1,29 @@
 const express = require('express');
 const _ = require('lodash');
-const {getMetadata} = require('page-metadata-parser');
-const domino = require('domino');
-const fetch = require('isomorphic-fetch');
 
 const Link = require('../models/link');
 const { authenticate } = require('../middlewares/authenticate');
+const scrapMetadata = require('../services/scrapMetadata');
 
 const router = express.Router();
 
-router.post('/add', authenticate, async (req, res) => {
+router.post('/add', authenticate, (req, res) => {
   let resBody = {};
   let error = {};
   const reqBody = _.pick(req.body, ['url', 'group', 'data', 'hide']);
-  try {
-    if(reqBody.url) {
-      let body;
-      if(reqBody.data) {
-        body = {
-          ...reqBody.data,
-          userId: req.user._id,
-          createdAt: new Date().getTime(),
-          hide: reqBody.hide
-        }
-      } else {
-        const response = await fetch(reqBody.url);
-        const html = await response.text();
-        const doc = domino.createWindow(html).document;
-        const metadata = getMetadata(doc, reqBody.url);
-        if(!metadata) {
-          throw new Error('Error');
-        }
-        body = {
-          userId: req.user._id,
-          url: reqBody.url,
-          title: metadata.title,
-          description: metadata.description,
-          image: metadata.image,
-          logo: metadata.icon,
-          createdAt: new Date().getTime(),
-          hide: reqBody.hide
-        }
-      }
-      if(reqBody.group) {
-        body.group = reqBody.group
-      }
-      const link = new Link(body);
-      const savedData = await link.save();
+  reqBody._id = req.user._id;
+  scrapMetadata(reqBody)
+    .then(data => {
       resBody.status = 'ok';
-      resBody.data = savedData;
+      resBody.data = data;
       return res.status(200).send(resBody);
-    } else {
-      throw new Error('Error');
-    }
-  } catch(e) {
-    error.msg = 'Invalid link!';
-    resBody.status = 'error';
-    resBody.error = error;
-    return res.status(400).send(resBody);
-  }
+    })
+    .catch(e => {
+      error.msg = 'Invalid link!';
+      resBody.status = 'error';
+      resBody.error = error;
+      return res.status(400).send(resBody);
+    });
 });
 
 router.delete('/remove/:id', authenticate, async (req, res) => {
